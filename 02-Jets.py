@@ -15,3 +15,19 @@ plt.hist(good_events.jets.pt)
 
 # Plot the pT of all good jets in good events.
 plt.hist(good_events.jets[a_good_jet].pt)
+
+# Alternate way, with LINQ
+
+a_good_jet = lambda j: j.pt > 40
+
+good_events = events \
+                .Where(lambda e: e.jets.where(lambda j: a_good_jet(j)).count())
+
+good_events.SelectMany(lambda e: e.jets) \
+        .Select(lambda j: j.pt) \
+        .Plot(bins=50)
+
+good_events.SelectMany(lambda e: e.jets) \
+        .Where(lambda j: a_good_jet(j)) \
+        .Select(lambda j: j.pt) \
+        .Plot(bins=50)
