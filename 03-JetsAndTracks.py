@@ -18,3 +18,25 @@ plt.hist(good_jets.pt)
 # Plot the tracks near a good jet
 plt.hist(tracks_near_jets.pt)
 plt.hist(tracks_near_jets.eta)
+
+
+# Using the LINQ approach
+a_ok_jet = lambda j, tracks: j.pt > 40
+a_good_track = lambda t: t.pt > 1.0
+
+# I'm using a tuple here, but being able to "create" a named object here is very helpful.
+good_jets = events \
+                .SelectMany(lambda e: e.jets.Select(lambda j: (j, e.tracks.where(lambda t: DR(t.p3, j.p3) < 0.2)))) \
+                .Where(lambda info: info[1].count() >= 2)
+
+# Plot the jet pT
+good_jets \
+        .select(lambda j: j[0].pt) \
+        .Plot(nbins=50, title = 'Good jet ')
+
+# Plot the tracks near a good jet
+good_tracks = good_jets \
+                .SelectMany(lambda info: info[1])
+
+good_tracks.select(lambda t: t.pt).Plot(nbins=50, title = 'Good track pt')
+good_tracks.select(lambda t: t.eta).Plot(nbins=50, title = 'Good track eta')
