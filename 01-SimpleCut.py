@@ -2,7 +2,7 @@
 
 good_events = events[met > 60]
 
-plt.hist(events.met, bins=50)
+plt.hist(good_events.met, bins=50)
 
 
 # Alternate way, using the LINQ version, but should be equivalent.
