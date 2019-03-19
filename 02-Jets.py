@@ -9,6 +9,9 @@ good_jets = all_jets[a_good_jet]
 
 # Events with at least 2 good jets
 good_events = events[events.jets[len(good_jets) >= 2]]
+events.good_jets = events.jets[events.jets[pt > 40]]]
+events.njets = len(events.good_jets)
+
 
 # Plot the pT of all jets that are in good events.
 plt.hist(good_events.jets.pt)
@@ -21,7 +24,7 @@ plt.hist(good_events.jets[a_good_jet].pt)
 a_good_jet = lambda j: j.pt > 40
 
 good_events = events \
-                .Where(lambda e: e.jets.where(lambda j: a_good_jet(j)).count() > 2)
+                .Where(lambda e: e.jets.where(lambda j: a_good_jet(j)).count() >= 2)
 
 good_events.SelectMany(lambda e: e.jets) \
         .Select(lambda j: j.pt) \
