@@ -1,7 +1,7 @@
 # Cut and plot on a distribution
-from myfiledatamodel import met
+#from myfiledatamodel import met
 
-
+met = events.met
 good_events = events[met > 60]
 
 plt.hist(good_events.met, bins=50)
