@@ -1,4 +1,6 @@
 # Cut and plot on a distribution
+from myfiledatamodel import met
+
 
 good_events = events[met > 60]
 
