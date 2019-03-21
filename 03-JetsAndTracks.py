@@ -21,7 +21,7 @@ plt.hist(tracks_near_jets.eta)
 
 
 # Using the LINQ approach
-a_ok_jet = lambda j, tracks: j.pt > 40
+a_ok_jet = lambda j: j.pt > 40
 a_good_track = lambda t: t.pt > 1.0
 
 # I'm using a tuple here, but being able to "create" a named object here is very helpful.

@@ -12,7 +12,6 @@ good_events = events[events.jets[len(good_jets) >= 2]]
 events.good_jets = events.jets[events.jets[pt > 40]]]
 events.njets = len(events.good_jets)
 
-
 # Plot the pT of all jets that are in good events.
 plt.hist(good_events.jets.pt)
 
